@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RB">
+        <attr name="count" format="integer"/>
+        <attr name="padding" format="dimension"/>
+        <attr name="starHeight" format="dimension"/>
+        <attr name="starWidth" format="dimension"/>
+    </declare-styleable>
+</resources>
