@@ -1,12 +1,12 @@
 package com.dn.ratingbar;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.dn.ratingbar.view.CustomRatingBar;
 
-public class MainActivity extends AppCompatActivity implements CustomRatingBar.OnStarChangeListener {
+public class MainActivity extends Activity implements CustomRatingBar.OnStarChangeListener {
 
     protected CustomRatingBar mRb;
 
@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity implements CustomRatingBar.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRb = (CustomRatingBar) findViewById(R.id.rb);
-        assert mRb != null;
         mRb.setOnStarChangeListener(this);
     }
 

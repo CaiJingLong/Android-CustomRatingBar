@@ -13,6 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:count="5"
+        app:currentCount="2.5"
+        app:minStar="1.5"
         app:padding="3dp"
         app:starHeight="40dp"
         app:starWidth="40dp"/>

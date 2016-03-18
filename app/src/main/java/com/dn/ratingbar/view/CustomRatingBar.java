@@ -3,6 +3,7 @@ package com.dn.ratingbar.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class CustomRatingBar extends ViewGroup {
     protected MarginLayoutParams mParams;
     protected float stars;
     private float lastStars;
+    protected float mMinStar;
 
     public CustomRatingBar(Context context) {
         this(context, null);
@@ -50,6 +52,8 @@ public class CustomRatingBar extends ViewGroup {
         mPadding = (int) a.getDimension(R.styleable.RB_padding, 10);
         mStarWidth = (int) a.getDimension(R.styleable.RB_starWidth, 40);
         mStartHeight = (int) a.getDimension(R.styleable.RB_starHeight, 40);
+        mMinStar = a.getFloat(R.styleable.RB_minStar, 0);
+        stars = a.getFloat(R.styleable.RB_currentCount, 0) * 2;
         for (int i = 0; i < mCount; i++) {
             ImageView child = createChild();
             addView(child);
@@ -111,6 +115,10 @@ public class CustomRatingBar extends ViewGroup {
     }
 
     private void setView() {
+        if (stars < mMinStar * 2) {
+            stars = mMinStar * 2;
+        }
+        Log.d("CustomRatingBar", "stars:" + stars);
         int stars = (int) this.stars;
         if (stars % 2 == 0) {
             for (int i = 0; i < mCount; i++) {
@@ -145,11 +153,57 @@ public class CustomRatingBar extends ViewGroup {
         view.setImageResource(R.drawable.star_full);
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        setView();
+    }
+
+    public int getCount() {
+        return mCount;
+    }
+
+    public void setCount(int mCount) {
+        this.mCount = mCount;
+    }
+
+    public int getPadding() {
+        return mPadding;
+    }
+
+    public void setPadding(int mPadding) {
+        this.mPadding = mPadding;
+    }
+
+    public int getStarWidth() {
+        return mStarWidth;
+    }
+
+    public void setStarWidth(int mStarWidth) {
+        this.mStarWidth = mStarWidth;
+    }
+
+    public int getStartHeight() {
+        return mStartHeight;
+    }
+
+    public void setStartHeight(int mStartHeight) {
+        this.mStartHeight = mStartHeight;
+    }
+
+    public float getMinStar() {
+        return mMinStar;
+    }
+
+    public void setMinStar(float mMinStar) {
+        this.mMinStar = mMinStar;
+    }
+
     private float fixStars(int current) {
         if (current > mCount * 2) {
             return mCount * 2;
-        } else if (current < 0) {
-            return 0;
+        } else if (current < mMinStar * 2) {
+            return mMinStar * 2;
         }
         return current;
     }
@@ -158,7 +212,6 @@ public class CustomRatingBar extends ViewGroup {
         int width = getWidth();
         int per = width / mCount / 2;
         return (int) (y / per);
-
     }
 
     @Override

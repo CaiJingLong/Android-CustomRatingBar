@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--自定义的一些属性-->
     <declare-styleable name="RB">
+        <!--星星的数量-->
         <attr name="count" format="integer"/>
+        <!--最小的可选择数量-->
+        <attr name="minStar" format="float"/>
+        <!--最小的可选择数量-->
+        <attr name="currentCount" format="float"/>
+        <!--星星间距-->
         <attr name="padding" format="dimension"/>
+        <!--每颗星星的高度-->
         <attr name="starHeight" format="dimension"/>
+        <!--每颗星星的宽度-->
         <attr name="starWidth" format="dimension"/>
     </declare-styleable>
 </resources>
