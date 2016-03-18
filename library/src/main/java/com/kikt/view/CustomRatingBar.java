@@ -1,4 +1,4 @@
-package com.dn.ratingbar.view;
+package com.kikt.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,8 +8,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.dn.ratingbar.R;
 
 import java.util.ArrayList;
 import java.util.List;

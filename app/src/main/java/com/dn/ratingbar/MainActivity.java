@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.dn.ratingbar.view.CustomRatingBar;
+import com.kikt.view.CustomRatingBar;
+
 
 public class MainActivity extends Activity implements CustomRatingBar.OnStarChangeListener {
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.dn.ratingbar.MainActivity">
 
-    <com.dn.ratingbar.view.CustomRatingBar
+    <com.kikt.view.CustomRatingBar
         android:id="@+id/rb"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
