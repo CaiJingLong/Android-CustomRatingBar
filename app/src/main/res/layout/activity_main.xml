@@ -23,4 +23,28 @@
         app:starHeight="30dp"
         app:starWidth="30dp"/>
 
+    <com.kikt.view.CustomRatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        app:currentStar="3.5"
+        app:maxStar="5"
+        app:minStar="0.5"
+        app:padding="3dp"
+        app:starHeight="30dp"
+        app:starWidth="30dp"/>
+
+    <com.kikt.view.CustomRatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        app:currentStar="4"
+        app:maxStar="6"
+        app:minStar="1.5"
+        app:padding="3dp"
+        app:starHeight="50dp"
+        app:starWidth="50dp"/>
+
 </LinearLayout>
