@@ -19,7 +19,7 @@ import java.util.List;
 public class CustomRatingBar extends ViewGroup {
 
     private final Context mContext;
-    protected int mCount;
+    protected int mMaxStar;
     private int mPadding;
     protected int mStarWidth;
     protected int mStartHeight;
@@ -46,13 +46,13 @@ public class CustomRatingBar extends ViewGroup {
     }
 
     private void initView(TypedArray a) {
-        mCount = a.getInteger(R.styleable.RB_count, 0);
+        mMaxStar = a.getInteger(R.styleable.RB_maxStar, 5);
         mPadding = (int) a.getDimension(R.styleable.RB_padding, 10);
         mStarWidth = (int) a.getDimension(R.styleable.RB_starWidth, 40);
         mStartHeight = (int) a.getDimension(R.styleable.RB_starHeight, 40);
         mMinStar = a.getFloat(R.styleable.RB_minStar, 0);
-        stars = a.getFloat(R.styleable.RB_currentCount, 0) * 2;
-        for (int i = 0; i < mCount; i++) {
+        stars = a.getFloat(R.styleable.RB_currentStar, 0) * 2;
+        for (int i = 0; i < mMaxStar; i++) {
             ImageView child = createChild();
             addView(child);
             list.add(child);
@@ -119,7 +119,7 @@ public class CustomRatingBar extends ViewGroup {
         Log.d("CustomRatingBar", "stars:" + stars);
         int stars = (int) this.stars;
         if (stars % 2 == 0) {
-            for (int i = 0; i < mCount; i++) {
+            for (int i = 0; i < mMaxStar; i++) {
                 if (i < stars / 2) {
                     setFullView(list.get(i));
                 } else {
@@ -127,7 +127,7 @@ public class CustomRatingBar extends ViewGroup {
                 }
             }
         } else {
-            for (int i = 0; i < mCount; i++) {
+            for (int i = 0; i < mMaxStar; i++) {
                 if (i < stars / 2) {
                     setFullView(list.get(i));
                 } else if (i == stars / 2) {
@@ -158,11 +158,11 @@ public class CustomRatingBar extends ViewGroup {
     }
 
     public int getCount() {
-        return mCount;
+        return mMaxStar;
     }
 
     public void setCount(int mCount) {
-        this.mCount = mCount;
+        this.mMaxStar = mCount;
     }
 
     public int getPadding() {
@@ -198,8 +198,8 @@ public class CustomRatingBar extends ViewGroup {
     }
 
     private float fixStars(int current) {
-        if (current > mCount * 2) {
-            return mCount * 2;
+        if (current > mMaxStar * 2) {
+            return mMaxStar * 2;
         } else if (current < mMinStar * 2) {
             return mMinStar * 2;
         }
@@ -208,7 +208,7 @@ public class CustomRatingBar extends ViewGroup {
 
     private int checkX(float y) {
         int width = getWidth();
-        int per = width / mCount / 2;
+        int per = width / mMaxStar / 2;
         return (int) (y / per);
     }
 
