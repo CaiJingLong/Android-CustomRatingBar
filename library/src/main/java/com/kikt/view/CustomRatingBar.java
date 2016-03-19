@@ -3,7 +3,6 @@ package com.kikt.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +17,22 @@ import java.util.List;
  */
 public class CustomRatingBar extends ViewGroup {
 
+    public static final int STAR_EMPTY = R.drawable.star_empty;
+    public static final int STAR_HALF = R.drawable.star_half;
+    public static final int STAR_FULL = R.drawable.star_full;
     private final Context mContext;
     protected int mMaxStar;
     private int mPadding;
     protected int mStarWidth;
-    protected int mStartHeight;
+    protected int mStarHeight;
     protected LayoutParams childParams;
-    protected MarginLayoutParams mParams;
     protected float stars;
     private float lastStars;
     protected float mMinStar;
+
+    protected int mEmptyStar;
+    protected int mFullStar;
+    protected int mHalfStar;
 
     public CustomRatingBar(Context context) {
         this(context, null);
@@ -49,9 +54,13 @@ public class CustomRatingBar extends ViewGroup {
         mMaxStar = a.getInteger(R.styleable.RB_maxStar, 5);
         mPadding = (int) a.getDimension(R.styleable.RB_padding, 10);
         mStarWidth = (int) a.getDimension(R.styleable.RB_starWidth, 40);
-        mStartHeight = (int) a.getDimension(R.styleable.RB_starHeight, 40);
+        mStarHeight = (int) a.getDimension(R.styleable.RB_starHeight, 40);
         mMinStar = a.getFloat(R.styleable.RB_minStar, 0);
         stars = a.getFloat(R.styleable.RB_currentStar, 0) * 2;
+        mEmptyStar = a.getResourceId(R.styleable.RB_emptyStar, STAR_EMPTY);
+        mHalfStar = a.getResourceId(R.styleable.RB_halfStar, STAR_HALF);
+        mFullStar = a.getResourceId(R.styleable.RB_fullStar, STAR_FULL);
+
         for (int i = 0; i < mMaxStar; i++) {
             ImageView child = createChild();
             addView(child);
@@ -63,16 +72,20 @@ public class CustomRatingBar extends ViewGroup {
 
     private ImageView createChild() {
         ImageView imageView = new ImageView(mContext);
-        imageView.setImageResource(R.drawable.star_empty);
+        imageView.setImageResource(R.drawable.star_empty);//默认使用空的星星
         childParams = generateDefaultLayoutParams();
-        childParams.width = mStarWidth;
-        childParams.height = mStartHeight;
+        childParams.width = mStarWidth;//宽高使用自定义的属性
+        childParams.height = mStarHeight;
         imageView.setLayoutParams(childParams);
         return imageView;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (onStarChangeListener == null) {
+            return false;
+        }
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_MOVE:
                 float x = event.getX();
@@ -116,7 +129,6 @@ public class CustomRatingBar extends ViewGroup {
         if (stars < mMinStar * 2) {
             stars = mMinStar * 2;
         }
-        Log.d("CustomRatingBar", "stars:" + stars);
         int stars = (int) this.stars;
         if (stars % 2 == 0) {
             for (int i = 0; i < mMaxStar; i++) {
@@ -140,15 +152,15 @@ public class CustomRatingBar extends ViewGroup {
     }
 
     protected void setEmptyView(ImageView view) {
-        view.setImageResource(R.drawable.star_empty);
+        view.setImageResource(mEmptyStar);
     }
 
     protected void setHalfView(ImageView view) {
-        view.setImageResource(R.drawable.star_half);
+        view.setImageResource(mHalfStar);
     }
 
     protected void setFullView(ImageView view) {
-        view.setImageResource(R.drawable.star_full);
+        view.setImageResource(mFullStar);
     }
 
     @Override
@@ -157,11 +169,11 @@ public class CustomRatingBar extends ViewGroup {
         setView();
     }
 
-    public int getCount() {
+    public int getMax() {
         return mMaxStar;
     }
 
-    public void setCount(int mCount) {
+    public void setMax(int mCount) {
         this.mMaxStar = mCount;
     }
 
@@ -181,12 +193,12 @@ public class CustomRatingBar extends ViewGroup {
         this.mStarWidth = mStarWidth;
     }
 
-    public int getStartHeight() {
-        return mStartHeight;
+    public int getStarHeight() {
+        return mStarHeight;
     }
 
-    public void setStartHeight(int mStartHeight) {
-        this.mStartHeight = mStartHeight;
+    public void setStarHeight(int mStarHeight) {
+        this.mStarHeight = mStarHeight;
     }
 
     public float getMinStar() {
@@ -206,16 +218,15 @@ public class CustomRatingBar extends ViewGroup {
         return current;
     }
 
-    private int checkX(float y) {
+    private int checkX(float x) {
         int width = getWidth();
         int per = width / mMaxStar / 2;
-        return (int) (y / per);
+        return (int) (x / per);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mParams = (MarginLayoutParams) getLayoutParams();
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
         int childCount = getChildCount();
 
         int width = 0;
@@ -223,7 +234,6 @@ public class CustomRatingBar extends ViewGroup {
 
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
-            measureChild(child, widthMeasureSpec, heightMeasureSpec);
             int measuredWidth = child.getMeasuredWidth();
             int measuredHeight = child.getMeasuredHeight();
             width += measuredWidth;
@@ -233,18 +243,18 @@ public class CustomRatingBar extends ViewGroup {
                 width += mPadding;
             }
         }
-        width += (mParams.leftMargin + mParams.rightMargin);
-        height += (mParams.topMargin + mParams.bottomMargin);
         setMeasuredDimension(width, height);
     }
 
     @Override
-    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+    public MarginLayoutParams generateLayoutParams(AttributeSet attrs) {
         return new MarginLayoutParams(getContext(), attrs);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        t = 0;//初始化顶部开始位置
+        l = 0;//初始化左边开始位置
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
@@ -254,4 +264,6 @@ public class CustomRatingBar extends ViewGroup {
             l = r + mPadding;
         }
     }
+
+
 }
