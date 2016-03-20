@@ -101,7 +101,7 @@ java核心代码
     }
 
 ## 后记
-    在写完项目后，我也发现了一些其他类似的项目，继承自LinearLayout的项目，可惜是使用imageView的onclick事件实现，目测没有滑动的效果
+    在写完项目后，我也发现了一些其他类似的项目，继承自LinearLayout的项目，可惜是使用imageView的onclick事件实现，目测无法拖动改变星星的数量
 
 ## email
 [email](mailto:cjl_spy@163.com?subject=RatingBar-Feedback)
