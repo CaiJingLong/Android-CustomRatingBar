@@ -5,7 +5,7 @@
     因为项目中用到了评分系统，而系统自带的RatingBar功能看似完整，但大小定义太过困难，所以考虑自定义view
     
 ###截图 
-![layout](http://image17-c.poco.cn/mypoco/myphoto/20160319/22/17883087220160319222442051.png?768x1280_130)
+![layout](http://image17.poco.cn/mypoco/myphoto/20160319/22/17883087220160319222442051.png?768x1280_130)
 
 ###技术选型
     自定义View有继承View和ViewGroup的差别
