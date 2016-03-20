@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Created by CaiJL on 2016/3/18.
- * 自定义的RatingBar
+ * Simple Custom Rating bar
  */
 public class CustomRatingBar extends ViewGroup {
 
@@ -60,6 +60,7 @@ public class CustomRatingBar extends ViewGroup {
         mEmptyStar = a.getResourceId(R.styleable.RB_emptyStar, STAR_EMPTY);
         mHalfStar = a.getResourceId(R.styleable.RB_halfStar, STAR_HALF);
         mFullStar = a.getResourceId(R.styleable.RB_fullStar, STAR_FULL);
+        isCanChange = a.getBoolean(R.styleable.RB_canChange, true);
 
         for (int i = 0; i < mMaxStar; i++) {
             ImageView child = createChild();
@@ -72,27 +73,30 @@ public class CustomRatingBar extends ViewGroup {
 
     private ImageView createChild() {
         ImageView imageView = new ImageView(mContext);
-        imageView.setImageResource(R.drawable.star_empty);//默认使用空的星星
+        imageView.setImageResource(R.drawable.star_empty);
         childParams = generateDefaultLayoutParams();
-        childParams.width = mStarWidth;//宽高使用自定义的属性
+        childParams.width = mStarWidth;
         childParams.height = mStarHeight;
         imageView.setLayoutParams(childParams);
         return imageView;
     }
 
+    private boolean isCanChange;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (onStarChangeListener == null) {
-            return false;
-        }
-
         switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                float x = event.getX();
-                int current = checkX(x);
-                stars = fixStars(current);
-                checkState();
-                break;
+                if (isCanChange) {
+                    float x = event.getX();
+                    int current = checkX(x);
+                    stars = fixStars(current);
+                    checkState();
+                    break;
+                } else {
+                    return false;
+                }
         }
         return true;
     }
@@ -209,6 +213,22 @@ public class CustomRatingBar extends ViewGroup {
         this.mMinStar = mMinStar;
     }
 
+    public void setStars(float stars) {
+        this.stars = stars;
+    }
+
+    public float getStars() {
+        return stars;
+    }
+
+    public void setCanChange(boolean canChange) {
+        isCanChange = canChange;
+    }
+
+    public boolean isCanChange() {
+        return isCanChange;
+    }
+
     private float fixStars(int current) {
         if (current > mMaxStar * 2) {
             return mMaxStar * 2;
@@ -221,7 +241,7 @@ public class CustomRatingBar extends ViewGroup {
     private int checkX(float x) {
         int width = getWidth();
         int per = width / mMaxStar / 2;
-        return (int) (x / per);
+        return (int) (x / per) + 1;
     }
 
     @Override
@@ -253,8 +273,8 @@ public class CustomRatingBar extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        t = 0;//初始化顶部开始位置
-        l = 0;//初始化左边开始位置
+        t = 0;
+        l = 0;
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);

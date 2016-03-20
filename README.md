@@ -32,6 +32,8 @@
         <attr name="fullStar" format="reference"/>
         <!--半星星-->
         <attr name="halfStar" format="reference"/>
+        <!--可以被触摸改变-->
+        <attr name="canChange" format="boolean"/>
     </declare-styleable>
     
 ###使用
