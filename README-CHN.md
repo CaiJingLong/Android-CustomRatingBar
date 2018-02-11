@@ -21,6 +21,18 @@
 ---
 ![layout](https://b6kk3w.bn1303.livefilestore.com/y3mwprYwIaG95BSlv1QElIYWkzH7feAoYVB1mDV226lRerdjKuWP5Ijwe9sysN5-DglMglx0w0v0zWF2m3O5LRhYH8iJovE81NRejxpD1mkIMwzZYPVgbMg2zADathTXWiW80UZVubc84dyfKjnlWGU1Ckmoah__tJejbEpb9g7cr8/layout-2016-03-19-222225.png?psid=1)
 
+### gradle依赖
+根目录的build.gradle
+
+    https://jitpack.io/#CaiJingLong/Android-CustomRatingBar
+
+moudle(app)的build.gralde
+
+    dependencies {
+            compile 'com.github.CaiJingLong:Android-CustomRatingBar:-SNAPSHOT'
+    }
+
+
 ###技术选型
 ---
     自定义View有继承View和ViewGroup的差别

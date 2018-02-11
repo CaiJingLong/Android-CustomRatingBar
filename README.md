@@ -12,6 +12,15 @@
 - version ：1.0
 
 ### install
+Add it in your root build.gradle at the end of repositories:
+
+    https://jitpack.io/#CaiJingLong/Android-CustomRatingBar
+
+Step 2. Add the dependency
+
+    dependencies {
+            compile 'com.github.CaiJingLong:Android-CustomRatingBar:-SNAPSHOT'
+    }
 
 
 ## screenshot
