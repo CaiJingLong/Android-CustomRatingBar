@@ -1,6 +1,10 @@
 #Android-CustomRatingBar
-## Custom Rating Bar
+Custom Rating Bar  
+ 
+[![Release](https://jitpack.io/v/CaiJingLong/Android-CustomRatingBar.svg)](https://jitpack.io/#CaiJingLong/Android-CustomRatingBar)
 ---
+
+## doc
 
 [English doc](https://github.com/CaiJingLong/Android-CustomRatingBar/blob/master/README.md)
 
