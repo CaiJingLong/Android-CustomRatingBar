@@ -13,10 +13,7 @@
 
 ### 前言
 ---
-因为项目中用到了评分系统，而系统自带的RatingBar功能看似完整，但大小定义太过困难，所以考虑自定义view
-<br/>
-<br/>
-<br/>
+因为项目中用到了评分系统，而系统自带的RatingBar功能看似完整，但大小定义太过困难，所以考虑自定义view  
 ## 截图
 ---
 ![layout](https://b6kk3w.bn1303.livefilestore.com/y3mwprYwIaG95BSlv1QElIYWkzH7feAoYVB1mDV226lRerdjKuWP5Ijwe9sysN5-DglMglx0w0v0zWF2m3O5LRhYH8iJovE81NRejxpD1mkIMwzZYPVgbMg2zADathTXWiW80UZVubc84dyfKjnlWGU1Ckmoah__tJejbEpb9g7cr8/layout-2016-03-19-222225.png?psid=1)
@@ -24,7 +21,12 @@
 ### gradle依赖
 根目录的build.gradle
 
-    https://jitpack.io/#CaiJingLong/Android-CustomRatingBar
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 
 moudle(app)的build.gralde
 
