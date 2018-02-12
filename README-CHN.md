@@ -1,5 +1,7 @@
-#Android-CustomRatingBar
-#自定义的星形组件
+# Android-CustomRatingBar
+自定义的星形组件
+[![Release](https://jitpack.io/v/User/Repo.svg)]
+(https://jitpack.io/#User/Repo)
 ---
 
 [English doc](https://github.com/CaiJingLong/Android-CustomRatingBar/blob/master/README.md)
