@@ -214,7 +214,8 @@ public class CustomRatingBar extends ViewGroup {
     }
 
     public void setStars(float stars) {
-        this.stars = stars;
+        this.stars = stars * 2;
+        checkState();
     }
 
     public float getStars() {
